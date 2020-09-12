@@ -1,11 +1,21 @@
-'''Ingreso de Datos'''
+# DISEÑO DE SOFTWARE 2020-2
+# PROFESOR: JAIME FARFÁN
+# ALUMNO : BERNARDO FLORES
+# ALUMNO : FABIO TORRES
+# ALUMNO : JOEL ASTUVILCA
+         
+#PRESENTACIÓN
+print("\t.:SUNAT:.")
+print("\t.:CÁLCULO DE IMPUESTO A LA RENTA DE QUINTA CATEGORÍA:.")
+print()
+
+# Ingreso de Datos
 MesAct = int(input("Ingrese el mes en el que comenzó a trabajar (número): "))
-NumMeses = 13 - MesAct
 RemMensual = float(input("Ingrese remuneración mensual: "))
 Grati = float(input("Ingrese gratificaciones y remuneraciones extras: "))
 
+# Opción determina si operar con montos extras o no
 opcion = int(input("Recibió pagos extraordinarios (1=sí, 0=no):"))
-
 if opcion == 1:
     mes = int(input("Ingrese mes en el que recibió pago (número): "))
     MontoExtra = float(input("Ingrese pagos extraordinarios: "))
@@ -14,15 +24,15 @@ else:
 
 AdicionalBruto = Grati
 
-'''Variables Fijas'''
+# Variables Fijas
 UIT = 4300
 TazaImp = 0
+NumMeses = 13 - MesAct
 
-
-'''Paso 1'''
+# PASO 1
 RemBrutaAnual = RemMensual * NumMeses + AdicionalBruto
 
-'''Paso 2'''
+# PASO 2
 if (RemBrutaAnual > 7*UIT):
     RemNetaAnual = RemBrutaAnual - ( 7 * UIT)
 else:
@@ -30,7 +40,7 @@ else:
     print("---- Usted no estará sujeto a retención ----")
     exit()
 
-'''Paso 3'''
+# PASO 3
 if (RemNetaAnual <= 5 * UIT):
     TazaImp = 0.08
 elif (5*UIT < RemNetaAnual <= 20*UIT):
@@ -45,7 +55,7 @@ else:
 ImpAnualProy = TazaImp * RemNetaAnual
 
 
-'''Paso 4'''
+# PASO 4
 'enero'
 if (MesAct > 1): ImpEne = 0
 else: ImpEne = ImpAnualProy / 12
@@ -87,7 +97,7 @@ else: ImpNov = (ImpAnualProy - Ene2Ago) / 4
 'diciembre'
 ImpDic = ImpAnualProy - (Ene2Ago + ImpSep + ImpOct + ImpNov)
 
-'''Paso 5'''
+# PASO 5
 SumExt = MontoExtra + RemNetaAnual
 
 if (SumExt <= 5 * UIT):
@@ -104,6 +114,8 @@ else:
 Temp = TazaImp2 * SumExt
 RetAdiMes = Temp - ImpAnualProy
 
+
+# IMPRIMIR SIN PAGOS EXTRAORDINARIOS (OPCION = 0)
 if opcion == 0:
     print("Tu empleador retendrá s/.",round(ImpAnualProy,2),"por concepto del impuesto a la renta de quinta categoría de la siguiente manera:")
     print("Enero:     ", round(ImpEne,2))
@@ -119,7 +131,7 @@ if opcion == 0:
     print("Noviembre: ", round(ImpNov,2))
     print("Diciembre: ", round(ImpDic,2))
 
-'''caso pago extra ENERO'''
+# DEFINIMOS CONDICIÓN DE PAGO EXTRAORDINARIO EN MES ESPECIFICO
 if opcion == 1:
     if mes == 1:
         ImpEne = RetAdiMes + ImpEne
@@ -148,6 +160,7 @@ if opcion == 1:
     else:
         print("Valor incorrecto")
 
+# IMPRIMIMOS IMPUESTOS DE CADA MES CON PAGO EXTRAORDINARIO INCLUIDO (OPCION = 1)
     print("Tu empleador retendrá s/.", round(ImpAnualProy, 2),"por concepto del impuesto a la renta de quinta categoría de la siguiente manera:")
     print("Enero:     ", round(ImpEne, 2))
     print("Febrero:   ", round(ImpFeb, 2))
